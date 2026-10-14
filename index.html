@@ -31,6 +31,9 @@
     <symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 12h10"/></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
     <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-glass" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M5 7h14M9 12l3-3M9 17l6-6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
     <symbol id="i-chain" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
   </defs>
 </svg>
@@ -61,7 +64,7 @@
 
 <main id="top">
 
-<!-- ================= 1. PRODUCT REVEAL ================= -->
+<!-- ================= 1. HERO — morphing housing framed by floating proof cards ================= -->
 <section class="hero" id="formats" aria-labelledby="hero-title">
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="wrap">
@@ -70,46 +73,127 @@
       <h1 id="hero-title" class="h1"><span class="line intro" style="--i:1">We Know Grading Sucks.</span> <span class="line red intro" style="--i:2">But Not Anymore.</span></h1>
       <p class="hero-desc intro" style="--i:3">Meet the industry's first aerospace glass card housing with RFID. Built to change how your cards are protected, graded, and tracked.</p>
       <a href="#offer" class="btn btn-lg btn-shine intro" style="--i:4" id="heroCta">Claim your Glass slot <svg><use href="#i-arrow"/></svg></a>
+      <p class="hero-ends intro" style="--i:5">Presale pricing ends <b>Feb 1, 2027</b><span id="daysLeftWrap"> · <b id="daysLeft">110</b> days left</span></p>
     </div>
 
-    <div class="stage-col intro-stage">
-      <div class="stage" id="stage" aria-roledescription="Rotating product view">
-        <!-- stage lighting: beam, dust, light pool, pedestal -->
+    <div class="showcase">
+      <!-- Framed stage: the housing morphs through every size, small to large -->
+      <div class="panel intro" style="--i:5">
+        <span class="panel-lines" aria-hidden="true"></span>
         <span class="beam" aria-hidden="true"><i class="dust"></i></span>
-        <span class="pool" aria-hidden="true"></span>
-        <span class="pedestal" aria-hidden="true"></span>
-        <span class="watermark" id="watermark" aria-hidden="true">Single</span>
-        <div class="rig" id="rig">
-          <div class="slab3d" id="slab" data-format="single">
-            <div class="face front">
-              <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span><span class="screw s4"></span>
-              <div class="hlabel">
-                <img src="assets/brand/hga.svg" alt="" class="hlabel-logo" />
-                <span class="hlabel-meta"><b id="labelTitle">Shohei Ohtani</b><small id="labelSub">2025 Topps Finest</small></span>
-                <span class="hlabel-grade"><small>Card Grade</small><b>10</b></span>
+        <div class="stage" id="stage" aria-roledescription="Housing sizes, changing automatically">
+          <div class="rig" id="rig">
+            <div class="slab3d" id="slab" data-format="single">
+              <div class="face front">
+                <span class="screw s1"></span><span class="screw s2"></span><span class="screw s3"></span><span class="screw s4"></span>
+                <div class="hlabel">
+                  <img src="assets/brand/hga.svg" alt="" class="hlabel-logo" />
+                  <span class="hlabel-meta"><b id="labelTitle">Shohei Ohtani</b><small id="labelSub">2025 Topps Finest</small></span>
+                  <span class="hlabel-grade"><small>Card Grade</small><b>10</b></span>
+                </div>
+                <div class="bay" id="bay"></div>
+                <span class="sheen" aria-hidden="true"></span>
+                <span class="scanline" aria-hidden="true"></span>
               </div>
-              <div class="bay" id="bay"></div>
-              <span class="sheen" aria-hidden="true"></span>
-              <span class="scanline" aria-hidden="true"></span>
+              <div class="face back"><img src="assets/brand/hga.svg" alt="" /><span>RFID</span></div>
+              <div class="face side left"></div>
+              <div class="face side right"></div>
+              <div class="face side top"></div>
+              <div class="face side bottom"></div>
             </div>
-            <div class="face back"><img src="assets/brand/hga.svg" alt="" /><span>RFID</span></div>
-            <div class="face side left"></div>
-            <div class="face side right"></div>
-            <div class="face side top"></div>
-            <div class="face side bottom"></div>
           </div>
-          <div class="floor-shadow"></div>
+        </div>
+        <div class="fmt-now">
+          <b id="fmtName" aria-live="polite">Single</b>
+          <div class="fmt-dots" id="fmtDots" role="tablist" aria-label="Housing sizes"></div>
         </div>
       </div>
+
+      <!-- Floating glass cards -->
+      <!-- On phones these three become one swipeable row; elsewhere the wrapper has no box -->
+      <div class="gc-rail">
+      <div class="gc gc-clock intro" style="--i:8" id="clockCard">
+        <div class="clock-top">
+          <div><p class="gc-k">Grading clock</p><b class="clock-title">One date. One deadline.</b></div>
+          <span class="clock-badge"><b>30</b><small>Days</small></span>
+        </div>
+        <div class="clock-bar" id="clockBar" aria-hidden="true"></div>
+        <div class="clock-labels"><span><b>Day 1</b> Grading date</span><span><b>Day 30</b> Turnaround</span></div>
+        <div class="clock-foot"><span class="crow-ico"><svg><use href="#i-track"/></svg></span><div><b>Real-time tracking</b><span>Every step, no guessing.</span></div></div>
+      </div>
+
+      <div class="gc gc-date intro" style="--i:7">
+        <p class="gc-k">Your grading date</p>
+        <b class="gc-big">Tue, Feb 9, 2027</b>
+        <span class="gc-ok"><svg><use href="#i-check"/></svg> Grading capacity reserved</span>
+      </div>
+
+      <!-- Rotating collector review — PLACEHOLDERS: swap in real reviews + names before launch (list in main.js) -->
+      <figure class="gc gc-review hero-quote intro" style="--i:8" aria-live="polite">
+        <span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span>
+        <blockquote id="heroQuote">“Picking my own grading date beats refreshing a status page for months.”</blockquote>
+        <figcaption><span class="gc-av" aria-hidden="true"></span><span id="heroQuoteBy">[Collector name] · On the grading calendar</span></figcaption>
+      </figure>
+      </div>
+
+      <div class="gc gc-chip gc-rfid intro" style="--i:9">
+        <span class="gc-ico"><span class="rf-rings"><i></i><i></i></span><svg><use href="#i-rfid"/></svg></span>
+        <span><b>RFID verified</b><small>Tap to see the card's record</small></span>
+      </div>
+
+      <div class="gc gc-chip gc-price intro" style="--i:10">
+        <span><small>Presale · Glass</small><b>$200 <s>$800</s></b></span>
+        <span class="gc-save">Save 75%</span>
+      </div>
+    </div>
+    <p class="hero-note">Presale slots cover single cards. Booklets, folds and decks are booked separately.</p>
+  </div>
+</section>
+
+<!-- ================= 2. WHY GRADING WON'T SUCK ANYMORE ================= -->
+<section class="sec why" id="why" aria-labelledby="why-title">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <p class="label"><i class="dot"></i> Why HGA</p>
+      <h2 id="why-title" class="h2">Everything that sucks about grading. <span class="red wipe">Crossed out.</span></h2>
     </div>
 
-    <div class="fmt-list intro" style="--i:6" role="tablist" aria-label="Housing sizes" id="fmtList">
-      <!-- buttons injected from FORMATS in main.js -->
+    <ul class="pains" aria-label="The problem with grading today">
+      <li class="pain reveal"><span class="pain-x"><svg><use href="#i-x"/></svg></span><div><p>You don't know why your card got its grade.</p><span class="pain-d">You get a number, but not enough clarity on what went into it or where your card fell short.</span></div></li>
+      <li class="pain reveal" style="--d:1"><span class="pain-x"><svg><use href="#i-x"/></svg></span><div><p>Your grade depends on the grader's day.</p><span class="pain-d">The same card can feel like a different gamble every time. Inconsistent grading makes it hard to trust the result.</span></div></li>
+      <li class="pain reveal" style="--d:2"><span class="pain-x"><svg><use href="#i-x"/></svg></span><div><p>You don't know when you'll get it back.</p><span class="pain-d">Turnaround times keep you guessing, leaving you stuck waiting when you could be buying, selling, or enjoying your cards.</span></div></li>
+    </ul>
+
+    <p class="pivot reveal"><span>So we built three things nobody else has.</span></p>
+
+    <div class="answers">
+      <article class="answer reveal">
+        <div class="ans-vis vis-glass" aria-hidden="true"><img src="assets/slabs/glass-ohtani.webp" alt="" width="720" height="1207" loading="lazy" /></div>
+        <h3>Aerospace glass housing</h3>
+        <p>The industry's first glass card housing — built to protect your card and show it off.</p>
+      </article>
+      <article class="answer reveal" style="--d:1">
+        <div class="ans-vis vis-cal" aria-hidden="true">
+          <div class="mini-cal"><i></i><i></i><i class="x"></i><i class="x"></i><i></i><i class="w"></i><i class="w"></i><i></i><i class="me"></i><i></i><i class="x"></i><i></i><i class="w"></i><i class="w"></i></div>
+        </div>
+        <h3>The grading calendar</h3>
+        <p>Book your grading date. We reserve capacity for it before your card ships.</p>
+      </article>
+      <article class="answer reveal" style="--d:2">
+        <div class="ans-vis vis-rfid" aria-hidden="true"><img src="assets/photos/rfid-verified.jpg" alt="" width="988" height="626" loading="lazy" /></div>
+        <h3>RFID in every housing</h3>
+        <p>Tap with your phone to pull up your card's verified, permanent record.</p>
+      </article>
+    </div>
+
+    <div class="sec-cta reveal">
+      <a href="#offer" class="btn btn-lg btn-shine">Claim your Glass slot <svg><use href="#i-arrow"/></svg></a>
+      <span>Presale pricing ends Feb 1, 2027</span>
     </div>
   </div>
 </section>
 
-<!-- ================= 1b. METRICS ================= -->
+<!-- ================= 2a. METRICS — track record ================= -->
 <section class="metrics" aria-labelledby="metrics-title">
   <div class="wrap">
     <p class="label reveal" id="metrics-title"><i class="dot"></i> Despite our new beginning, we're not starting from zero</p>
@@ -122,36 +206,11 @@
   </div>
 </section>
 
-<!-- ================= 2. WHY HGA IS DIFFERENT ================= -->
-<section class="sec why" id="why" aria-labelledby="why-title">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <p class="label"><i class="dot"></i> Why HGA is different</p>
-      <h2 id="why-title" class="h2">You shouldn't have to <span class="red wipe">guess.</span></h2>
-    </div>
-    <div class="pa-grid">
-      <article class="pa reveal">
-        <p class="pa-q"><svg><use href="#i-x"/></svg>"Why did my card get that grade?"</p>
-        <div class="pa-a"><span class="pa-ico"><svg><use href="#i-report"/></svg></span><div><h3>Every grade explained</h3><p>Four subgrades — centering, corners, edges and surface — plus a full grading report.</p></div></div>
-      </article>
-      <article class="pa reveal" style="--d:1">
-        <p class="pa-q"><svg><use href="#i-x"/></svg>"Grading feels inconsistent."</p>
-        <div class="pa-a"><span class="pa-ico"><svg><use href="#i-eyeoff"/></svg></span><div><h3>Blind, measured grading</h3><p>Graders don't know whose card it is. Centering is measured by software from high-resolution images.</p></div></div>
-      </article>
-      <article class="pa reveal" style="--d:2">
-        <p class="pa-q"><svg><use href="#i-x"/></svg>"When do I get my cards back?"</p>
-        <div class="pa-a"><span class="pa-ico"><svg><use href="#i-cal"/></svg></span><div><h3>A date, not a guess</h3><p>Book your grading date on the calendar and track your order in real time.</p></div></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ================= 3. PROOF OF TRANSPARENCY ================= -->
+<!-- ================= 2b. PROOF OF TRANSPARENCY ================= -->
 <section class="sec proof" id="proof" aria-labelledby="proof-title">
   <div class="wrap">
     <div class="sec-head reveal">
-      <p class="label"><i class="dot"></i> Proof of transparency</p>
-      <h2 id="proof-title" class="h2">See exactly why. <span class="red wipe">Verify it anytime.</span></h2>
+      <h2 id="proof-title" class="h2">See exactly why you got your grade. <span class="red wipe">Verify it anytime.</span></h2>
       <p class="lead">Every grade comes with the reasoning behind it — and every housing carries an RFID chip linked to your card's permanent record.</p>
     </div>
 
@@ -196,119 +255,7 @@
   </div>
 </section>
 
-<!-- ================= 4. GRADING CALENDAR ================= -->
-<section class="sec cal" id="calendar" aria-labelledby="cal-title">
-  <div class="wrap">
-    <div class="cal-grid">
-      <div class="cal-copy">
-        <p class="label reveal"><i class="dot"></i> The HGA grading calendar</p>
-        <h2 id="cal-title" class="h2 reveal">Pick your date. <span class="red wipe">We'll be ready for it.</span></h2>
-        <p class="lead reveal">Choose your grading date, and we reserve grading capacity for it before your card ships.</p>
-        <p class="cal-strong reveal">No turnaround guesses. We plan capacity up front, so we deliver on time.</p>
-        <ul class="checks">
-          <li class="reveal"><svg><use href="#i-check"/></svg>Each day has a set grading capacity. Once a day is full, it closes on the calendar.</li>
-          <li class="reveal"><svg><use href="#i-check"/></svg>Booking opens January 18, 2027 — we'll email you an invite to book your date. Grading begins February 1, 2027.</li>
-          <li class="reveal"><svg><use href="#i-check"/></svg>Send your cards any time before your reserved date. Your presale credit applies automatically when you book.</li>
-          <li class="reveal"><svg><use href="#i-check"/></svg>If dates fill up months ahead, we're adding capacity. Need a card sooner? Standard grading is available separately.</li>
-        </ul>
-        <p class="cal-red reveal">No turnaround estimates. Book your day, know your date.</p>
-      </div>
-
-      <!-- Calendar preview: illustrative UI, not a live booking system -->
-      <div class="cal-card reveal" aria-label="Grading calendar preview">
-        <div class="cal-top"><p class="kicker">HGA grading calendar</p><b class="cal-month">February 2027</b></div>
-        <div class="cal-week" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
-        <div class="cal-days" id="calDays"></div>
-        <div class="cal-legend" aria-hidden="true"><span><i class="lg open"></i>Open</span><span><i class="lg full"></i>Full</span><span><i class="lg mine"></i>Your date</span></div>
-        <div class="cal-your" id="calYourBox" aria-live="polite">
-          <p class="kicker red-k">Your date</p>
-          <b id="calYour">Tue, Feb 9, 2027</b>
-          <span><svg><use href="#i-check"/></svg> Grading capacity reserved</span>
-        </div>
-        <label class="cal-toggle">
-          <input type="checkbox" id="moveUp" checked />
-          <span class="switch" aria-hidden="true"></span>
-          <span>If an earlier date opens, move me up automatically</span>
-        </label>
-      </div>
-    </div>
-
-    <!-- One date. One deadline. — 30-day turnaround (replaces the old 15-day / $1 credit block) -->
-    <div class="clock-grid">
-      <div class="clock-copy">
-        <h2 class="h2 reveal">The 30-day <span class="red wipe">turnaround.</span></h2>
-        <p class="lead reveal"><b>A date. Not an estimate.</b> Your 30-day turnaround is planned around the grading date you book — so you know when to expect your grade before your card leaves home.</p>
-        <p class="cal-strong reveal">We don't hope we hit a turnaround. We plan for it before your card ships.</p>
-        <div class="clock-rows">
-          <div class="crow reveal"><span class="crow-ico"><svg><use href="#i-cal"/></svg></span><b>You choose your grading date</b></div>
-          <div class="crow reveal" style="--d:1"><span class="crow-ico"><svg><use href="#i-truck"/></svg></span><b>Send your cards before your date</b></div>
-          <div class="crow reveal" style="--d:2"><span class="crow-ico"><svg><use href="#i-track"/></svg></span><b>30-day turnaround, tracked in real time</b></div>
-        </div>
-      </div>
-      <div class="clock-card reveal" style="--d:1" id="clockCard">
-        <div class="clock-top">
-          <div><p class="kicker">Grading clock</p><b class="clock-title">One date. One deadline.</b></div>
-          <span class="clock-badge"><b>30</b><small>Days</small></span>
-        </div>
-        <div class="clock-bar" id="clockBar" aria-hidden="true"></div>
-        <div class="clock-labels"><span><b>Day 1</b> Your grading date</span><span><b>Day 30</b> Turnaround</span></div>
-        <div class="clock-foot"><span class="crow-ico"><svg><use href="#i-track"/></svg></span><div><b>Real-time tracking</b><span>Follow every step from delivery to your grade — no guessing in between.</span></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= 5. PRODUCT OPTIONS + SAVINGS ================= -->
-<section class="sec offer" id="offer" aria-labelledby="offer-title">
-  <div class="wrap">
-    <div class="sec-head center reveal">
-      <p class="label"><i class="dot"></i> Presale · Limited time</p>
-      <h2 id="offer-title" class="h2">Save 75% on your <span class="red wipe">first grades.</span></h2>
-      <p class="lead">Discounted standard-card grading slots. Book your date from Jan 18, 2027 — grading begins Feb 1, 2027.</p>
-    </div>
-
-    <!-- Prices from the latest confirmed presale offer — confirm before launch -->
-    <div class="plans">
-      <article class="plan plan-glass reveal">
-        <span class="plan-tag">Featured</span>
-        <div class="plan-media"><img src="assets/slabs/glass-ohtani.webp" alt="A card in an HGA Glass housing" width="720" height="1207" loading="lazy" /></div>
-        <div class="plan-body">
-          <p class="kicker gold">Glass · standard-card slot</p>
-          <h3>Aerospace glass housing with RFID</h3>
-          <div class="plan-price"><b>$200</b><s>$800</s><span class="save-tag">Save $600</span></div>
-          <ul class="ticks">
-            <li><svg><use href="#i-check"/></svg>One standard-card grading slot</li>
-            <li><svg><use href="#i-check"/></svg>Aerospace glass housing + RFID chip</li>
-            <li><svg><use href="#i-check"/></svg>Four subgrades + full grading report</li>
-            <li><svg><use href="#i-check"/></svg>Book your date from Jan 18, 2027</li>
-            <li><svg><use href="#i-check"/></svg>30-day turnaround, tracked in real time</li>
-          </ul>
-          <a href="#claim-glass" class="btn btn-lg btn-block btn-shine">Claim your Glass slot <svg><use href="#i-arrow"/></svg></a>
-        </div>
-      </article>
-
-      <article class="plan plan-poly reveal" style="--d:1">
-        <div class="plan-media"><img src="assets/slabs/poly-gwynn.webp" alt="A card in an HGA Poly housing" width="720" height="1198" loading="lazy" /></div>
-        <div class="plan-body">
-          <p class="kicker">Poly · standard-card slot</p>
-          <h3>Professional grading, launch value</h3>
-          <div class="plan-price"><b>$29</b><s>$116</s><span class="save-tag">Save $87</span></div>
-          <ul class="ticks">
-            <li><svg><use href="#i-check"/></svg>One standard-card grading slot</li>
-            <li><svg><use href="#i-check"/></svg>Poly housing + RFID chip</li>
-            <li><svg><use href="#i-check"/></svg>Four subgrades + full grading report</li>
-            <li><svg><use href="#i-check"/></svg>Same calendar, same tracking</li>
-          </ul>
-          <a href="#claim-poly" class="btn btn-ghost btn-lg btn-block">Claim your Poly slot <svg><use href="#i-arrow"/></svg></a>
-        </div>
-      </article>
-    </div>
-
-    <p class="fine center">Presale slots cover standard-size cards. Booklets, folds and decks are booked separately. Presale purchases are non-transferable.</p>
-  </div>
-</section>
-
-<!-- ================= 6. HOW GRADING WORKS (timeline from hga-presale) ================= -->
+<!-- ================= 2c. HOW GRADING WORKS (timeline from hga-presale) ================= -->
 <section class="sec how" id="how" aria-labelledby="how-title">
   <div class="wrap">
     <div class="sec-head center reveal">
@@ -369,7 +316,20 @@
         <span class="tl-num">05</span>
         <div class="tl-copy"><h3>Reveal It</h3><p>See your final grade, four subgrades, and full grading report — with a 30-day turnaround, tracked in real time.</p></div>
         <div class="tl-visual">
-          <div class="ui-card ui-reveal"><span class="kicker">Your grade is…</span><b>10</b><small>Gem Mint</small></div>
+          <div class="rphone" aria-hidden="true">
+            <div class="rphone-notch"></div>
+            <div class="rphone-screen">
+              <p class="ph-top">HGA · U-Collect</p>
+              <p class="ph-yg">Your grade is…</p>
+              <div class="spin-stage">
+                <div class="spin-card">
+                  <img class="sc-front" src="assets/cards/charizard-ex.jpg" alt="" loading="lazy" />
+                  <div class="sc-back"><img src="assets/brand/hga.svg" alt="" /></div>
+                </div>
+              </div>
+              <div class="ph-grade"><b>10</b><span>Gem Mint</span></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -378,7 +338,141 @@
   </div>
 </section>
 
-<!-- ================= 7. FAQ (draft — built from confirmed facts; review before launch) ================= -->
+<!-- ================= 3. HOW PRESALE + THE CALENDAR WORK ================= -->
+<section class="sec cal" id="calendar" aria-labelledby="presale-title">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <p class="label"><i class="dot"></i> How presale &amp; the calendar work</p>
+      <h2 id="presale-title" class="h2">We won't be late. <span class="red wipe">Here's why.</span></h2>
+      <p class="lead">We plan grading capacity around the date you book — before your card ever leaves home.</p>
+    </div>
+
+    <ol class="psteps reveal" id="psteps">
+      <li><span class="ps-node"></span><p class="kicker red-k">Today</p><h3>Buy slots at presale pricing</h3><p>Lock in Glass at $200 or Poly at $29 per standard card.</p></li>
+      <li><span class="ps-node"></span><p class="kicker">Jan 18, 2027</p><h3>Book your date</h3><p>We email you an invite to book your grading date. Your presale credit applies automatically.</p></li>
+      <li><span class="ps-node"></span><p class="kicker">Before your date</p><h3>Send your cards</h3><p>Ship any time before your booked grading date.</p></li>
+      <li><span class="ps-node"></span><p class="kicker">From Feb 1, 2027</p><h3>Grading begins</h3><p>30-day turnaround, tracked in real time.</p></li>
+    </ol>
+    <p class="moveup reveal"><span class="mu-ico" aria-hidden="true"><svg><use href="#i-arrow"/></svg></span>If an earlier date opens, we'll move you up automatically.</p>
+  </div>
+</section>
+
+<!-- ================= 3b. PRODUCT OPTIONS + SAVINGS ================= -->
+<section class="sec offer" id="offer" aria-labelledby="offer-title">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <p class="label"><i class="dot"></i> Presale · Limited time</p>
+      <h2 id="offer-title" class="h2">Save 75% on your <span class="red wipe">first grades.</span></h2>
+      <p class="lead">Discounted standard-card grading slots. Book your date from Jan 18, 2027 — grading begins Feb 1, 2027.</p>
+    </div>
+
+    <!-- Prices from the latest confirmed presale offer — confirm before launch -->
+    <div class="plans">
+      <article class="plan plan-glass reveal">
+        <span class="plan-tag">Featured</span>
+        <div class="plan-media"><img src="assets/slabs/glass-ohtani.webp" alt="A card in an HGA Glass housing" width="720" height="1207" loading="lazy" /></div>
+        <div class="plan-body">
+          <p class="kicker gold">Glass · standard-card slot</p>
+          <h3>Aerospace glass housing with RFID</h3>
+          <div class="plan-price"><b>$200</b><s>$800</s><span class="save-tag">Save $600</span></div>
+          <ul class="ticks">
+            <li><svg><use href="#i-check"/></svg>One standard-card grading slot</li>
+            <li><svg><use href="#i-check"/></svg>Aerospace glass housing + RFID chip</li>
+            <li><svg><use href="#i-check"/></svg>Four subgrades + full grading report</li>
+            <li><svg><use href="#i-check"/></svg>Book your date from Jan 18, 2027</li>
+            <li><svg><use href="#i-check"/></svg>30-day turnaround, tracked in real time</li>
+          </ul>
+          <a href="#claim-glass" class="btn btn-lg btn-block btn-shine">Claim your Glass slot <svg><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="plan plan-poly reveal" style="--d:1">
+        <div class="plan-media"><img src="assets/slabs/poly-gwynn.webp" alt="A card in an HGA Poly housing" width="720" height="1198" loading="lazy" /></div>
+        <div class="plan-body">
+          <p class="kicker">Poly · standard-card slot</p>
+          <h3>Professional grading, launch value</h3>
+          <div class="plan-price"><b>$29</b><s>$116</s><span class="save-tag">Save $87</span></div>
+          <ul class="ticks">
+            <li><svg><use href="#i-check"/></svg>One standard-card grading slot</li>
+            <li><svg><use href="#i-check"/></svg>Poly housing + RFID chip</li>
+            <li><svg><use href="#i-check"/></svg>Four subgrades + full grading report</li>
+            <li><svg><use href="#i-check"/></svg>Same calendar, same tracking</li>
+          </ul>
+          <a href="#claim-poly" class="btn btn-ghost btn-lg btn-block">Claim your Poly slot <svg><use href="#i-arrow"/></svg></a>
+        </div>
+      </article>
+    </div>
+
+    <p class="fine center">Presale slots cover standard-size cards. Booklets, folds and decks are booked separately. Presale purchases are non-transferable.</p>
+  </div>
+</section>
+
+<!-- ================= 3c. PICK YOUR DATE + 30-DAY TURNAROUND ================= -->
+<section class="sec cal" id="pick" aria-labelledby="cal-title">
+  <div class="wrap">
+    <div class="cal-grid">
+      <div class="cal-copy">
+        <p class="label reveal"><i class="dot"></i> The HGA grading calendar</p>
+        <h3 id="cal-title" class="h2 h2-sm reveal">Pick your date. <span class="red wipe">We'll be ready for it.</span></h3>
+        <p class="lead reveal">Choose your grading date, and we reserve grading capacity for it before your card ships.</p>
+        <p class="cal-strong reveal">No turnaround guesses. We plan capacity up front, so we deliver on time.</p>
+        <ul class="checks">
+          <li class="reveal"><svg><use href="#i-check"/></svg>Each day has a set grading capacity. Once a day is full, it closes on the calendar.</li>
+          <li class="reveal"><svg><use href="#i-check"/></svg>Booking opens January 18, 2027 — we'll email you an invite to book your date. Grading begins February 1, 2027.</li>
+          <li class="reveal"><svg><use href="#i-check"/></svg>Send your cards any time before your reserved date. Your presale credit applies automatically when you book.</li>
+          <li class="reveal"><svg><use href="#i-check"/></svg>If dates fill up months ahead, we're adding capacity. Need a card sooner? Standard grading is available separately.</li>
+        </ul>
+        <p class="cal-red reveal">No turnaround estimates. Book your day, know your date.</p>
+      </div>
+
+      <!-- Calendar preview: illustrative UI, not a live booking system -->
+      <div class="cal-card reveal" aria-label="Grading calendar preview">
+        <div class="cal-top"><p class="kicker">HGA grading calendar</p><b class="cal-month">February 2027</b></div>
+        <div class="cal-week" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+        <div class="cal-days" id="calDays"></div>
+        <div class="cal-legend" aria-hidden="true"><span><i class="lg open"></i>Open</span><span><i class="lg full"></i>Full</span><span><i class="lg mine"></i>Your date</span></div>
+        <div class="cal-your" id="calYourBox" aria-live="polite">
+          <p class="kicker red-k">Your date</p>
+          <b id="calYour">Tue, Feb 9, 2027</b>
+          <span><svg><use href="#i-check"/></svg> Grading capacity reserved</span>
+        </div>
+        <label class="cal-toggle">
+          <input type="checkbox" id="moveUp" checked />
+          <span class="switch" aria-hidden="true"></span>
+          <span>If an earlier date opens, move me up automatically</span>
+        </label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3d. COLLECTOR REVIEWS — PLACEHOLDERS: swap in real reviews + names before launch ================= -->
+<section class="sec reviews" id="reviews" aria-labelledby="reviews-title">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <p class="label"><i class="dot"></i> Collector reviews</p>
+      <h2 id="reviews-title" class="h2">Collectors are done <span class="red wipe">guessing.</span></h2>
+    </div>
+  </div>
+  <div class="final-reviews reveal" aria-label="Collector reviews">
+    <div class="rv-row"><div class="rv-track">
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Graders not knowing whose card it is — that's how it should've always been.”</blockquote><figcaption><b>[Collector name]</b><span>On blind grading</span></figcaption></figure>
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“The move-up option is clutch. If an earlier date opens, I'm in.”</blockquote><figcaption><b>[Collector name]</b><span>On the grading calendar</span></figcaption></figure>
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Centering measured from real images. No more arguing with a number.”</blockquote><figcaption><b>[Collector name]</b><span>On grading reports</span></figcaption></figure>
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“First slab I'd actually put on a shelf. The glass makes the card the star.”</blockquote><figcaption><b>[Collector name]</b><span>On the glass housing</span></figcaption></figure>
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Picking my own grading date beats refreshing a status page for months.”</blockquote><figcaption><b>[Collector name]</b><span>On the grading calendar</span></figcaption></figure>
+    </div></div>
+    <div class="rv-row rev"><div class="rv-track">
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Glass plus RFID is the combo nobody else has.”</blockquote><figcaption><b>[Collector name]</b><span>On the glass housing</span></figcaption></figure>
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“I booked, shipped, and knew exactly when it would be done.”</blockquote><figcaption><b>[Collector name]</b><span>On the 30-day turnaround</span></figcaption></figure>
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“Tracking my order in real time is huge.”</blockquote><figcaption><b>[Collector name]</b><span>On real-time tracking</span></figcaption></figure>
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“One tap and I can see the card's record. Buying graded cards feels a lot less sketchy.”</blockquote><figcaption><b>[Collector name]</b><span>On RFID</span></figcaption></figure>
+        <figure class="rv"><span class="rv-stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“A real date instead of an ‘estimated turnaround.’ That alone sold me.”</blockquote><figcaption><b>[Collector name]</b><span>On the 30-day turnaround</span></figcaption></figure>
+    </div></div>
+  </div>
+</section>
+
+<!-- ================= 3e. FAQ (draft — built from confirmed facts; review before launch) ================= -->
 <section class="sec faq" id="faq" aria-labelledby="faq-title">
   <div class="wrap faq-grid">
     <div class="reveal">
@@ -398,20 +492,15 @@
   </div>
 </section>
 
-<!-- ================= 8. FINAL PRESALE CTA ================= -->
-<section class="final" aria-labelledby="final-title">
-  <div class="final-bg" aria-hidden="true"></div>
-  <div class="wrap final-in">
-    <div class="final-media reveal"><img class="final-slab" src="assets/slabs/glass-ohtani.webp" alt="" width="720" height="1207" loading="lazy" /></div>
-    <div class="final-copy reveal" style="--d:1">
-      <p class="label"><i class="dot"></i> Presale · Save 75%</p>
-      <h2 id="final-title" class="h2">Grading doesn't have to suck. <span class="red">Lock in your slot.</span></h2>
-      <p class="lead">Glass $200 <s>$800</s> · Poly $29 <s>$116</s>. Booking opens Jan 18, 2027 — grading begins Feb 1, 2027.</p>
-      <div class="final-ctas">
-        <a href="#offer" class="btn btn-lg btn-shine">Claim your Glass slot <svg><use href="#i-arrow"/></svg></a>
-        <a href="#offer" class="alt-link">Or Poly at $29 <svg><use href="#i-arrow"/></svg></a>
-      </div>
-    </div>
+<!-- ================= 4. BACKSTORY LINK ================= -->
+<section class="backstory-sec" aria-label="Our backstory">
+  <div class="wrap">
+    <!-- Separate page, still to be built: where-weve-been.html -->
+    <a href="where-weve-been.html" class="backstory reveal">
+      <span class="bs-k">The backstory</span>
+      <b>New HGA, same commitment to collectors. See where we've been</b>
+      <svg><use href="#i-arrow"/></svg>
+    </a>
   </div>
 </section>
 

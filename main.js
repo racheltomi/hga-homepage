@@ -1,23 +1,20 @@
-/* HGA homepage — rotating glass housing, size selector, proof, calendar, clock */
+/* HGA homepage — morphing housing + glass cards, reviews, proof, calendar, clock */
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---------- Housing formats (ascending size) ----------
-     w/h/d = housing size in design px. cards = files in assets/cards/.
-     Swap artwork, copy or sizes here; the 3D housing rebuilds from this list. */
+  /* ---------- Hero: housing that morphs through every size ----------
+     w/h/d = housing size in design px. cards = files in assets/cards/. */
   const FORMATS = [
-    { id: "single",   name: "Single card", w: 250, h: 412, d: 20,  amp: 26, boost: 1,   cards: ["ohtani"],                                         title: "Shohei Ohtani", sub: "2025 Topps Finest" },
-    { id: "booklet",  name: "Booklet",     w: 366, h: 330, d: 22,  amp: 24, boost: 1,   cards: ["gengar", "alakazam"],                             title: "Booklet",       sub: "2 panels" },
-    { id: "trifold",  name: "Trifold",     w: 532, h: 330, d: 24,  amp: 20, boost: 0.5, cards: ["jenkins", "white", "ohtani"],                     title: "Trifold",       sub: "3 panels" },
-    { id: "fivefold", name: "Five-fold",   w: 864, h: 330, d: 26,  amp: 14, boost: 0,   cards: ["meowth", "gengar", "alakazam", "jenkins", "white"], title: "Five-fold",     sub: "5 panels" },
-    { id: "deck",     name: "Deck",        w: 330, h: 470, d: 200, amp: 34, boost: 0.3, cards: ["meowth"],                                         title: "Deck",          sub: "Full deck" },
+    { id: "single",   name: "Single",    w: 250, h: 412, d: 20,  amp: 24, boost: 1,   cards: ["ohtani"],                                         title: "Shohei Ohtani", sub: "2025 Topps Finest" },
+    { id: "booklet",  name: "Booklet",   w: 366, h: 330, d: 22,  amp: 22, boost: 1,   cards: ["gengar", "alakazam"],                             title: "Booklet",       sub: "2 panels" },
+    { id: "trifold",  name: "Trifold",   w: 532, h: 330, d: 24,  amp: 18, boost: 0.5, cards: ["jenkins", "white", "ohtani"],                     title: "Trifold",       sub: "3 panels" },
+    { id: "fivefold", name: "Five-fold", w: 864, h: 330, d: 26,  amp: 12, boost: 0,   cards: ["meowth", "gengar", "alakazam", "jenkins", "white"], title: "Five-fold",     sub: "5 panels" },
+    { id: "deck",     name: "Deck",      w: 330, h: 470, d: 200, amp: 32, boost: 0.3, cards: ["meowth"],                                         title: "Deck",          sub: "Full deck" },
   ];
-  const ICON = [[16, 26], [28, 22], [38, 22], [58, 22], [20, 28]];   // selector silhouettes, ascending
-  const AUTO_MS = 3600;
-
-  const stage = $("#stage"), stageCol = $(".stage-col"), rig = $("#rig"), slab = $("#slab"), bay = $("#bay"), list = $("#fmtList");
+  const AUTO_MS = 3400;
+  const stage = $("#stage"), rig = $("#rig"), slab = $("#slab"), bay = $("#bay"), dots = $("#fmtDots"), fmtName = $("#fmtName");
   let current = 0;
 
   FORMATS.forEach((f, i) => {
@@ -25,36 +22,26 @@
     set.className = "panelset" + (i === 0 ? " on" : "");
     set.innerHTML = f.cards.map((c) => `<img src="assets/cards/${c}.jpg" alt="" loading="${i === 0 ? "eager" : "lazy"}" decoding="async" />`).join("");
     bay.appendChild(set);
-
     const b = document.createElement("button");
-    b.className = "fmt-btn";
-    b.type = "button";
-    b.setAttribute("role", "tab");
-    b.setAttribute("aria-selected", i === 0 ? "true" : "false");
-    b.setAttribute("aria-label", f.name);
-    b.innerHTML = `<span class="fi"><i class="${f.id === "deck" ? "deck" : ""}" style="width:${ICON[i][0]}px;height:${ICON[i][1]}px"></i></span><span class="node"></span><b>${f.name}</b>`;
+    b.className = "fmt-dot"; b.type = "button";
+    b.setAttribute("role", "tab"); b.setAttribute("aria-label", f.name);
     b.addEventListener("click", () => { pauseAuto(); show(i); });
-    list.appendChild(b);
+    dots.appendChild(b);
   });
-  const sets = $$(".panelset", bay), btns = $$(".fmt-btn", list);
-  list.insertAdjacentHTML("afterbegin", '<span class="fmt-track" aria-hidden="true"></span><span class="fmt-fill" aria-hidden="true"></span>');
+  const sets = $$(".panelset", bay), dotBtns = $$(".fmt-dot", dots);
+  dots.style.setProperty("--auto", AUTO_MS + "ms");
 
-  // Fit to the stage, keep sizes visibly ascending, never grow into the CTA above
+  // Sizes stay visibly ascending; the slab never runs under the side cards on desktop
   function fit() {
     const f = FORMATS[current];
-    const sw = stage.clientWidth, sh = stage.clientHeight;
-    const base = Math.min(1, sw / 900, sh / 600);
+    const narrow = innerWidth <= 860;
+    const sw = stage.clientWidth * (narrow ? 0.9 : 0.54), sh = stage.clientHeight;
+    const base = Math.min(1, sw / 900, sh / 560);
     let s = base * Math.pow(1 / base, f.boost);
-    s = Math.min(s, (sw * 0.88) / f.w, (sh * 0.72) / f.h);
+    s = Math.min(s, sw / (f.w + f.d * 0.3), (sh * 0.8) / f.h);
     rig.style.setProperty("--s", s.toFixed(3));
-    stageCol.style.setProperty("--wm", Math.max(0.55, base).toFixed(3));
   }
-
-  function scan() {
-    if (reduce) return;
-    slab.classList.remove("scan"); void slab.offsetWidth; slab.classList.add("scan");
-  }
-
+  function scan() { if (reduce) return; slab.classList.remove("scan"); void slab.offsetWidth; slab.classList.add("scan"); }
   function show(i) {
     current = (i + FORMATS.length) % FORMATS.length;
     const f = FORMATS[current];
@@ -62,39 +49,32 @@
     slab.style.setProperty("--h", f.h + "px");
     slab.style.setProperty("--d", f.d + "px");
     slab.dataset.format = f.id;
-    stageCol.style.setProperty("--k", current);
     sets.forEach((el, j) => el.classList.toggle("on", j === current));
-    btns.forEach((el, j) => { el.setAttribute("aria-selected", j === current ? "true" : "false"); el.classList.toggle("done", j < current); });
-    list.style.setProperty("--idx", current);
+    dotBtns.forEach((el, j) => el.setAttribute("aria-selected", j === current ? "true" : "false"));
     $("#labelTitle").textContent = f.title;
     $("#labelSub").textContent = f.sub;
-    $("#watermark").textContent = f.id === "single" ? "Single" : f.name;
-    // restart the progress bar on the active button
-    list.classList.remove("auto"); void list.offsetWidth; if (autoTimer) list.classList.add("auto");
-    fit();
-    scan();
+    fmtName.textContent = f.name;
+    fmtName.style.setProperty("--fi", current);
+    dots.classList.remove("auto"); void dots.offsetWidth; if (autoTimer) dots.classList.add("auto");
+    fit(); scan();
   }
-
-  // Auto-cycle through sizes; pause after the visitor interacts
   let autoTimer = null, resumeTimer = null, inView = true;
-  list.style.setProperty("--auto", AUTO_MS + "ms");
   function startAuto() {
     if (reduce) return;
     stopAuto();
     autoTimer = setInterval(() => { if (inView && !document.hidden) show(current + 1); }, AUTO_MS);
-    list.classList.add("auto");
+    dots.classList.add("auto");
   }
-  function stopAuto() { clearInterval(autoTimer); autoTimer = null; list.classList.remove("auto"); }
+  function stopAuto() { clearInterval(autoTimer); autoTimer = null; dots.classList.remove("auto"); }
   function pauseAuto() { stopAuto(); clearTimeout(resumeTimer); resumeTimer = setTimeout(startAuto, 9000); }
 
-  // Rotation: gentle oscillation + drag with ease-back
+  // Gentle rotation + drag with ease-back
   let drag = 0, dragging = false, lastX = 0, running = false;
   const t0 = performance.now();
   function frame(now) {
     const t = (now - t0) / 1000;
     if (!dragging) drag *= 0.94;
-    const f = FORMATS[current];
-    const ry = (reduce ? -18 : f.amp * Math.sin(t * 0.55)) + drag;
+    const ry = (reduce ? -16 : FORMATS[current].amp * Math.sin(t * 0.55)) + drag;
     const rx = reduce ? -6 : -6 + 3 * Math.sin(t * 0.4);
     slab.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
     slab.style.setProperty("--sx", ((ry / 40) * 70).toFixed(1) + "%");
@@ -106,18 +86,50 @@
   const endDrag = () => { dragging = false; stage.classList.remove("dragging"); };
   stage.addEventListener("pointerup", endDrag);
   stage.addEventListener("pointercancel", endDrag);
-  list.addEventListener("keydown", (e) => {
-    const k = e.key; if (!["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp"].includes(k)) return;
-    e.preventDefault(); pauseAuto();
-    show(current + (k === "ArrowRight" || k === "ArrowDown" ? 1 : -1));
-    btns[current].focus();
-  });
   new IntersectionObserver((es) => { inView = es[0].isIntersecting; if (inView) run(); }).observe(stage);
   addEventListener("resize", fit);
-  show(0);
-  run();
-  setTimeout(startAuto, 1600);   // let the reveal finish first
+  show(0); run();
+  setTimeout(startAuto, 2000);
   setTimeout(scan, 1400);
+
+  /* ---------- Hero: glass cards float once they land ---------- */
+  if (!reduce) setTimeout(() => $$(".gc").forEach((g, k) => { g.style.animationDelay = (k * -1.7) + "s"; g.classList.add("float-on"); }), 2600);
+
+  /* ---------- Hero: one collector review at a time (PLACEHOLDERS) ---------- */
+  const QUOTES = [
+    ["“Picking my own grading date beats refreshing a status page for months.”", "On the grading calendar"],
+    ["“First slab I'd actually put on a shelf. The glass makes the card the star.”", "On the glass housing"],
+    ["“One tap and I can see the card's record. Buying graded cards feels a lot less sketchy.”", "On RFID"],
+    ["“A real date instead of an ‘estimated turnaround.’ That alone sold me.”", "On the 30-day turnaround"],
+    ["“Glass at presale pricing was a no-brainer.”", "On presale pricing"],
+  ];
+  const hq = $(".hero-quote");
+  if (hq && !reduce) {
+    let qi = 0;
+    setInterval(() => {
+      if (document.hidden) return;
+      hq.classList.add("fade");
+      setTimeout(() => {
+        qi = (qi + 1) % QUOTES.length;
+        $("#heroQuote").textContent = QUOTES[qi][0];
+        $("#heroQuoteBy").textContent = "[Collector name] · " + QUOTES[qi][1];
+        hq.classList.remove("fade");
+      }, 420);
+    }, 5200);
+  }
+
+  /* ---------- Review tickers: duplicate cards so the loop is seamless ---------- */
+  $$(".rv-track").forEach((tr) => {
+    [...tr.children].forEach((c) => { const d = c.cloneNode(true); d.setAttribute("aria-hidden", "true"); tr.appendChild(d); });
+  });
+
+  /* ---------- Presale countdown (pricing ends Feb 1, 2027) ---------- */
+  const daysLeft = $("#daysLeft");
+  if (daysLeft) {
+    const n = Math.ceil((new Date(2027, 1, 1) - new Date()) / 864e5);
+    if (n > 0) daysLeft.textContent = n; else $("#daysLeftWrap").remove();
+    if (n === 1) daysLeft.parentNode.lastChild.textContent = " day left";
+  }
 
   /* ---------- Proof: subgrades + final grade count-up ---------- */
   const report = $("#report");
@@ -167,13 +179,14 @@
     render(true);
   }
 
-  /* ---------- 30-day clock ---------- */
+  /* ---------- Hero grading clock: 30 days fill after the cards land ---------- */
   const bar = $("#clockBar");
   if (bar) for (let d = 1; d <= 30; d++) { const i = document.createElement("i"); if (d === 30) i.className = "end"; bar.appendChild(i); }
   const fillClock = () => {
     const cells = $$("i", bar);
     cells.forEach((c, k) => setTimeout(() => c.classList.add("on"), reduce ? 0 : 300 + k * 45));
   };
+  if (bar) setTimeout(fillClock, reduce ? 0 : 1800);
 
   /* ---------- How it works: timeline fill + active steps ---------- */
   const timeline = $("#timeline");
@@ -196,7 +209,6 @@
     const el = e.target;
     el.classList.add("in");
     if (el.id === "report") countUp($("#finalGrade"), 10);
-    if (el.id === "clockCard") fillClock();
     io.unobserve(el);
   }), { threshold: 0.18 });
   $$(".reveal").forEach((el) => io.observe(el));
